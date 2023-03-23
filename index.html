@@ -3,6 +3,7 @@
 
 <head>
 	<title>Lab Test 01</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -83,65 +84,66 @@
 		th:last-child {
 			border-right: none;
 		}
+
 		body {
-  font-family: sans-serif;
-  display: grid;
-  height: 100vh;
-  place-items: center;
-}
+			font-family: sans-serif;
+			display: grid;
+			height: 100vh;
+			place-items: center;
+		}
 
-.base-timer {
-  position: relative;
-  width: 300px;
-  height: 300px;
-}
+		.base-timer {
+			position: relative;
+			width: 300px;
+			height: 300px;
+		}
 
-.base-timer__svg {
-  transform: scaleX(-1);
-}
+		.base-timer__svg {
+			transform: scaleX(-1);
+		}
 
-.base-timer__circle {
-  fill: none;
-  stroke: none;
-}
+		.base-timer__circle {
+			fill: none;
+			stroke: none;
+		}
 
-.base-timer__path-elapsed {
-  stroke-width: 7px;
-  stroke: grey;
-}
+		.base-timer__path-elapsed {
+			stroke-width: 7px;
+			stroke: grey;
+		}
 
-.base-timer__path-remaining {
-  stroke-width: 7px;
-  stroke-linecap: round;
-  transform: rotate(90deg);
-  transform-origin: center;
-  transition: 1s linear all;
-  fill-rule: nonzero;
-  stroke: currentColor;
-}
+		.base-timer__path-remaining {
+			stroke-width: 7px;
+			stroke-linecap: round;
+			transform: rotate(90deg);
+			transform-origin: center;
+			transition: 1s linear all;
+			fill-rule: nonzero;
+			stroke: currentColor;
+		}
 
-.base-timer__path-remaining.green {
-  color: rgb(65, 184, 131);
-}
+		.base-timer__path-remaining.green {
+			color: rgb(65, 184, 131);
+		}
 
-.base-timer__path-remaining.orange {
-  color: orange;
-}
+		.base-timer__path-remaining.orange {
+			color: orange;
+		}
 
-.base-timer__path-remaining.red {
-  color: red;
-}
+		.base-timer__path-remaining.red {
+			color: red;
+		}
 
-.base-timer__label {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-}
+		.base-timer__label {
+			position: absolute;
+			width: 300px;
+			height: 300px;
+			top: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 48px;
+		}
 	</style>
 </head>
 
@@ -170,7 +172,8 @@
 			</tr>
 		</table>
 		<ul>
-			<li>Make ID and GOODS_ID as the primary key and don’t allow the columns to take NULL values.</li>
+			<li>Make ID and GOODS_ID as the primary key and don’t allow the columns to take NULL values.
+			</li>
 			<li>Make CUSTOMER_ID and GOODS_ID the foreign key of Order table referencing ID of Customer and GOODS_ID of
 				Goods table respectively</li>
 			<li>Apply some domain integrity techniques so that you can’t put negative value in the PRICE column of Goods
@@ -178,6 +181,35 @@
 			<li>Apply some domain integrity techniques so that if you delete a record in the customer table, related
 				records in Order table will automatically deleted.</li>
 		</ul>
+		<div class="container my-5">
+			<div class="row">
+				<div class="col-md-17 mx-auto">
+					<div class="pre-scrollable">
+						<pre>
+					CREATE TABLE Customer (
+					ID INT NOT NULL PRIMARY KEY,
+					Name VARCHAR(50) NOT NULL,
+					Contact VARCHAR(50) NOT NULL
+					);
+					
+					CREATE TABLE Goods (
+					Goods_ID INT NOT NULL PRIMARY KEY,
+					Goods_Name VARCHAR(50) NOT NULL,
+					Price DECIMAL(10, 2) NOT NULL CHECK (Price >= 0)
+					);
+					CREATE TABLE Order (
+					Order_Date DATE NOT NULL,
+					Customer_ID INT NOT NULL,
+					Goods_ID INT NOT NULL,
+					PRIMARY KEY (Customer_ID, Goods_ID),
+					FOREIGN KEY (Customer_ID) REFERENCES Customer(ID) ON DELETE CASCADE,
+					FOREIGN KEY (Goods_ID) REFERENCES Goods(Goods_ID) ON DELETE CASCADE
+					);
+				  </pre>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<h2>Queries</h2>
 		<table>
@@ -189,38 +221,195 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Insert minimum three rows for each table</td>
+					<td>Insert minimum three rows in above tables.
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-16 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+											INSERT INTO Customer (ID, Name, Contact, Address)
+											VALUES (1, 'John Doe', '555-1234', '123 Main St');
+											
+											INSERT INTO Customer (ID, Name, Contact, Address)
+											VALUES (2, 'Jane Smith', '555-5678', '456 Oak Ave');
+											
+											INSERT INTO Customer (ID, Name, Contact, Address)
+											VALUES (3, 'Bob Johnson', '555-9012', '789 Elm St');
+											
+											INSERT INTO Customer (ID, Name, Contact, Address)
+											VALUES (4, 'Alice Brown', '555-3456', '321 Pine St');
+											
+											-- Insert data into the Goods table
+											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
+											VALUES (1, 'Widget', 10.99);
+											
+											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
+											VALUES (2, 'Gadget', 19.99);
+											
+											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
+											VALUES (3, 'Thingamajig', 8.99);
+											
+											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
+											VALUES (4, 'Doohickey', 14.99);
+											
+											-- Insert data into the Order table
+											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
+											VALUES ('2023-03-19', 1, 1);
+											
+											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
+											VALUES ('2023-03-20', 1, 2);
+											
+											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
+											VALUES ('2023-03-21', 2, 3);
+											
+											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
+											VALUES ('2023-03-22', 3, 4);
+								  </pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 				<tr>
 					<td>To retrieve the names of all goods that have the letter "i" in their name and the customer's
-						name contains the letter "j".</td>
+						name contains the letter "j". <br>
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-16 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+											SELECT g.Goods_Name FROM Goods g
+											JOIN Order o ON g.Goods_ID = o.Goods_ID
+											JOIN Customer c ON o.Customer_ID = c.ID
+											WHERE g.Goods_Name LIKE '%i%'
+											AND c.Name LIKE '%j%';
+								  </pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 				<tr>
 					<td>Find the total number of customers in the Customer table and the details of the customer with ID
-						102, including their contact number.</td>
+						102, including their contact number.
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-16 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+											SELECT COUNT(*) as total_customers, Name, Contact FROM Customer 
+											WHERE ID = 102;
+								  </pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 				<tr>
 					<td>Retrieve the name and contact information of all customers who have purchased the goods with the
-						lowest price in the Goods table.</td>
+						lowest price in the Goods table.
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-19 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+											SELECT C.Name, C.Contact
+											FROM Customer C
+											JOIN Order O ON C.ID = O.Customer_ID
+											JOIN (SELECT MIN(Price) 
+											as min_price FROM Goods) G ON G.min_price = 
+											(SELECT Price FROM Goods WHERE Goods_ID = O.Goods_ID)
+								  </pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 				<tr>
-					<td>Find the customers who have not placed any orders yet.</td>
+					<td>Find the customers who have not placed any orders yet.
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-16 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+						SELECT C.Name, C.Contact
+						FROM Customer C
+						WHERE C.ID NOT IN (SELECT DISTINCT Customer_ID FROM Order)
+					</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 				<tr>
-					<td>Find the name of the customer who placed the most expensive order.</td>
+					<td>Find the name of the customer who placed the most expensive order.
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-16 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+						SELECT c.Name
+						FROM Customer c
+						JOIN Order o ON c.ID = o.Customer_ID
+						JOIN Goods g ON g.Goods_ID = o.Goods_ID
+						WHERE g.Price = (SELECT MAX(Price) FROM Goods)
+						ORDER BY g.Price DESC
+						LIMIT 1;
+					</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 				<tr>
-					<td>List all customers who have made more than 2 orders.</td>
+					<td>List all customers who have made more than 2 orders.
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-16 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+						
+						SELECT c.Name, COUNT(*) as num_orders
+						FROM Customer c
+						JOIN Order o ON c.ID = o.Customer_ID
+						GROUP BY c.ID
+						HAVING COUNT(*) > 2;
+					</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 				<tr>
-					<td>Drop the three tables.</td>
+					<td>Drop the three tables.
+						<div class="container my-3">
+							<div class="row">
+								<div class="col-md-16 mx-auto">
+									<div class="pre-scrollable">
+										<pre>
+						DROP TABLE IF EXISTS Order;
+						DROP TABLE IF EXISTS Goods;
+						DROP TABLE IF EXISTS Customer;
+					</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 
 				</tr>
 			</tbody>
@@ -232,30 +421,30 @@
 	</div>
 	<script>
 		const FULL_DASH_ARRAY = 283;
-const WARNING_THRESHOLD = 10;
-const ALERT_THRESHOLD = 5;
+		const WARNING_THRESHOLD = 10;
+		const ALERT_THRESHOLD = 5;
 
-const COLOR_CODES = {
-  info: {
-    color: "green"
-  },
-  warning: {
-    color: "orange",
-    threshold: WARNING_THRESHOLD
-  },
-  alert: {
-    color: "red",
-    threshold: ALERT_THRESHOLD
-  }
-};
+		const COLOR_CODES = {
+			info: {
+				color: "green"
+			},
+			warning: {
+				color: "orange",
+				threshold: WARNING_THRESHOLD
+			},
+			alert: {
+				color: "red",
+				threshold: ALERT_THRESHOLD
+			}
+		};
 
-const TIME_LIMIT = 1800;
-let timePassed = 0;
-let timeLeft = TIME_LIMIT;
-let timerInterval = null;
-let remainingPathColor = COLOR_CODES.info.color;
+		const TIME_LIMIT = 1800;
+		let timePassed = 0;
+		let timeLeft = TIME_LIMIT;
+		let timerInterval = null;
+		let remainingPathColor = COLOR_CODES.info.color;
 
-document.getElementById("app").innerHTML = `
+		document.getElementById("app").innerHTML = `
 <div class="base-timer">
   <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <g class="base-timer__circle">
@@ -274,76 +463,76 @@ document.getElementById("app").innerHTML = `
     </g>
   </svg>
   <span id="base-timer-label" class="base-timer__label">${formatTime(
-    timeLeft
-  )}</span>
+			timeLeft
+		)}</span>
 </div>
 `;
 
-startTimer();
+		startTimer();
 
-function onTimesUp() {
-  clearInterval(timerInterval);
-}
+		function onTimesUp() {
+			clearInterval(timerInterval);
+		}
 
-function startTimer() {
-  timerInterval = setInterval(() => {
-    timePassed = timePassed += 1;
-    timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML = formatTime(
-      timeLeft
-    );
-    setCircleDasharray();
-    setRemainingPathColor(timeLeft);
+		function startTimer() {
+			timerInterval = setInterval(() => {
+				timePassed = timePassed += 1;
+				timeLeft = TIME_LIMIT - timePassed;
+				document.getElementById("base-timer-label").innerHTML = formatTime(
+					timeLeft
+				);
+				setCircleDasharray();
+				setRemainingPathColor(timeLeft);
 
-    if (timeLeft === 0) {
-      onTimesUp();
-    }
-  }, 1000);
-}
+				if (timeLeft === 0) {
+					onTimesUp();
+				}
+			}, 1000);
+		}
 
-function formatTime(time) {
-  const minutes = Math.floor(time / 60);
-  let seconds = time % 60;
+		function formatTime(time) {
+			const minutes = Math.floor(time / 60);
+			let seconds = time % 60;
 
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
+			if (seconds < 10) {
+				seconds = `0${seconds}`;
+			}
 
-  return `${minutes}:${seconds}`;
-}
+			return `${minutes}:${seconds}`;
+		}
 
-function setRemainingPathColor(timeLeft) {
-  const { alert, warning, info } = COLOR_CODES;
-  if (timeLeft <= alert.threshold) {
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.remove(warning.color);
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.add(alert.color);
-  } else if (timeLeft <= warning.threshold) {
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.remove(info.color);
-    document
-      .getElementById("base-timer-path-remaining")
-      .classList.add(warning.color);
-  }
-}
+		function setRemainingPathColor(timeLeft) {
+			const { alert, warning, info } = COLOR_CODES;
+			if (timeLeft <= alert.threshold) {
+				document
+					.getElementById("base-timer-path-remaining")
+					.classList.remove(warning.color);
+				document
+					.getElementById("base-timer-path-remaining")
+					.classList.add(alert.color);
+			} else if (timeLeft <= warning.threshold) {
+				document
+					.getElementById("base-timer-path-remaining")
+					.classList.remove(info.color);
+				document
+					.getElementById("base-timer-path-remaining")
+					.classList.add(warning.color);
+			}
+		}
 
-function calculateTimeFraction() {
-  const rawTimeFraction = timeLeft / TIME_LIMIT;
-  return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
-}
+		function calculateTimeFraction() {
+			const rawTimeFraction = timeLeft / TIME_LIMIT;
+			return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+		}
 
-function setCircleDasharray() {
-  const circleDasharray = `${(
-    calculateTimeFraction() * FULL_DASH_ARRAY
-  ).toFixed(0)} 283`;
-  document
-    .getElementById("base-timer-path-remaining")
-    .setAttribute("stroke-dasharray", circleDasharray);
-}
+		function setCircleDasharray() {
+			const circleDasharray = `${(
+				calculateTimeFraction() * FULL_DASH_ARRAY
+			).toFixed(0)} 283`;
+			document
+				.getElementById("base-timer-path-remaining")
+				.setAttribute("stroke-dasharray", circleDasharray);
+		}
 	</script>
 </body>
 
