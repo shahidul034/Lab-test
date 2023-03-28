@@ -2,8 +2,10 @@
 <html>
 
 <head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
 	<title>Lab Test 01</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -151,68 +153,62 @@
 	<h1>CSE 3110: Database Systems Laboratory - Lab Test 01 <br>
 		Time: 30 min
 	</h1>
+	<p>Instruction: <mark>You have to write all the commands in a script file. Save the file using your Roll number (ex. 1907018.sql)</mark></p>
+
 	<div style="max-width: 800px; margin: 0 auto;">
 		<h2>Table Description</h2>
-		<table>
+		<table class="table table-hover">
 			<tr>
 				<th>Table Name</th>
 				<th>Columns</th>
 			</tr>
 			<tr>
-				<td>Customer</td>
-				<td>ID<br>Name<br>Contact</td>
+				<td>Departments</td>
+				<td>department_id <br> name</td>
 			</tr>
 			<tr>
-				<td>Goods</td>
-				<td>Goods_ID<br>Goods_Name<br>Price</td>
+				<td>Employees</td>
+				<td>employee_id<br>first_name<br>last_name<br>email<br>hire_date<br>department_id</td>
 			</tr>
 			<tr>
-				<td>Order</td>
-				<td>Order_Date<br>Customer_ID<br>Goods_ID</td>
+				<td>Salaries</td>
+				<td>employee_id<br>salary<br>from_date<br>to_date</td>
 			</tr>
 		</table>
-		<ul>
-			<li>Make ID and GOODS_ID as the primary key and don’t allow the columns to take NULL values.
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-primary">The Departments table has 2 columns: department_id and
+				name.
+				<ul>
+					<li class="list-group-item list-group-item-secondary">The department_id column is an integer column
+						that is set as the primary key of the table.</li>
+				</ul>
 			</li>
-			<li>Make CUSTOMER_ID and GOODS_ID the foreign key of Order table referencing ID of Customer and GOODS_ID of
-				Goods table respectively</li>
-			<li>Apply some domain integrity techniques so that you can’t put negative value in the PRICE column of Goods
-				table.</li>
-			<li>Apply some domain integrity techniques so that if you delete a record in the customer table, related
-				records in Order table will automatically deleted.</li>
+			<li class="list-group-item list-group-item-primary">The Employees table has 6 columns: employee_id,
+				first_name, last_name, email, hire_date, and
+				department_id.
+				<ul>
+					<li class="list-group-item list-group-item-secondary">The employee_id column is an integer column
+						and is set as the primary key of the table.</li>
+					<li class="list-group-item list-group-item-secondary">The department_id column is an integer column
+						that is a foreign key referencing the
+						department_id column in the Departments table.</li>
+				</ul>
+			</li>
+			<li class="list-group-item list-group-item-primary">The Salaries table has 4 columns: employee_id, salary,
+				from_date, and to_date.
+				<ul>
+					<li class="list-group-item list-group-item-secondary">The employee_id column is an integer column
+						that is a foreign key referencing the employee_id
+						column in the Employees table.</li>
+					<li class="list-group-item list-group-item-secondary">The from_date column is a DATE column that
+						stores the start date for the salary record. This
+						column, together with employee_id, forms the primary key of the table.</li>
+				</ul>
+			</li>
 		</ul>
-		<div class="container my-5">
-			<div class="row">
-				<div class="col-md-17 mx-auto">
-					<div class="pre-scrollable">
-						<pre>
-					CREATE TABLE Customer (
-					ID INT NOT NULL PRIMARY KEY,
-					Name VARCHAR(50) NOT NULL,
-					Contact VARCHAR(50) NOT NULL
-					);
-					
-					CREATE TABLE Goods (
-					Goods_ID INT NOT NULL PRIMARY KEY,
-					Goods_Name VARCHAR(50) NOT NULL,
-					Price DECIMAL(10, 2) NOT NULL CHECK (Price >= 0)
-					);
-					CREATE TABLE Order (
-					Order_Date DATE NOT NULL,
-					Customer_ID INT NOT NULL,
-					Goods_ID INT NOT NULL,
-					PRIMARY KEY (Customer_ID, Goods_ID),
-					FOREIGN KEY (Customer_ID) REFERENCES Customer(ID) ON DELETE CASCADE,
-					FOREIGN KEY (Goods_ID) REFERENCES Goods(Goods_ID) ON DELETE CASCADE
-					);
-				  </pre>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<h2>Queries</h2>
-		<table>
+		<!-- <table>
 			<thead>
 				<tr>
 					<th>Question</th>
@@ -221,199 +217,57 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Insert minimum three rows in above tables.
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-16 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-											INSERT INTO Customer (ID, Name, Contact, Address)
-											VALUES (1, 'John Doe', '555-1234', '123 Main St');
-											
-											INSERT INTO Customer (ID, Name, Contact, Address)
-											VALUES (2, 'Jane Smith', '555-5678', '456 Oak Ave');
-											
-											INSERT INTO Customer (ID, Name, Contact, Address)
-											VALUES (3, 'Bob Johnson', '555-9012', '789 Elm St');
-											
-											INSERT INTO Customer (ID, Name, Contact, Address)
-											VALUES (4, 'Alice Brown', '555-3456', '321 Pine St');
-											
-											-- Insert data into the Goods table
-											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
-											VALUES (1, 'Widget', 10.99);
-											
-											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
-											VALUES (2, 'Gadget', 19.99);
-											
-											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
-											VALUES (3, 'Thingamajig', 8.99);
-											
-											INSERT INTO Goods (Goods_ID, Goods_Name, Price)
-											VALUES (4, 'Doohickey', 14.99);
-											
-											-- Insert data into the Order table
-											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
-											VALUES ('2023-03-19', 1, 1);
-											
-											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
-											VALUES ('2023-03-20', 1, 2);
-											
-											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
-											VALUES ('2023-03-21', 2, 3);
-											
-											INSERT INTO Order (Order_Date, Customer_ID, Goods_ID)
-											VALUES ('2023-03-22', 3, 4);
-								  </pre>
-									</div>
-								</div>
-							</div>
-						</div>
+					<td>1)Insert 4 rows for each table.</td>
+
+				</tr>
+				<tr>
+					<td>2)Retrieve the first name, last name, email, department name, and salary of all employees who
+						work in the Sales department.</td>
+
+				</tr>
+				<tr>
+					<td>3)Retrieve the average salary of all employees in the company.</td>
+
+				</tr>
+				<tr>
+					<td>4)Retrieve the name of the department with the highest average salary.</td>
+
+				</tr>
+				<tr>
+					<td>5)Retrieve the first name, last name, email, and total salary of all employees hired in 2022.
 					</td>
 
 				</tr>
 				<tr>
-					<td>To retrieve the names of all goods that have the letter "i" in their name and the customer's
-						name contains the letter "j". <br>
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-16 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-											SELECT g.Goods_Name FROM Goods g
-											JOIN Order o ON g.Goods_ID = o.Goods_ID
-											JOIN Customer c ON o.Customer_ID = c.ID
-											WHERE g.Goods_Name LIKE '%i%'
-											AND c.Name LIKE '%j%';
-								  </pre>
-									</div>
-								</div>
-							</div>
-						</div>
+					<td>6)Retrieve the first name, last name, email, and salary of the employee with the highest salary.
 					</td>
 
 				</tr>
 				<tr>
-					<td>Find the total number of customers in the Customer table and the details of the customer with ID
-						102, including their contact number.
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-16 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-											SELECT COUNT(*) as total_customers, Name, Contact FROM Customer 
-											WHERE ID = 102;
-								  </pre>
-									</div>
-								</div>
-							</div>
-						</div>
-					</td>
+					<td>7)Retrieve the first name,last name and email of employee which department name contains with
+						"ng".</td>
 
 				</tr>
 				<tr>
-					<td>Retrieve the name and contact information of all customers who have purchased the goods with the
-						lowest price in the Goods table.
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-19 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-											SELECT C.Name, C.Contact
-											FROM Customer C
-											JOIN Order O ON C.ID = O.Customer_ID
-											JOIN (SELECT MIN(Price) 
-											as min_price FROM Goods) G ON G.min_price = 
-											(SELECT Price FROM Goods WHERE Goods_ID = O.Goods_ID)
-								  </pre>
-									</div>
-								</div>
-							</div>
-						</div>
-					</td>
-
-				</tr>
-				<tr>
-					<td>Find the customers who have not placed any orders yet.
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-16 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-						SELECT C.Name, C.Contact
-						FROM Customer C
-						WHERE C.ID NOT IN (SELECT DISTINCT Customer_ID FROM Order)
-					</pre>
-									</div>
-								</div>
-							</div>
-						</div>
-					</td>
-
-				</tr>
-				<tr>
-					<td>Find the name of the customer who placed the most expensive order.
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-16 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-						SELECT c.Name
-						FROM Customer c
-						JOIN Order o ON c.ID = o.Customer_ID
-						JOIN Goods g ON g.Goods_ID = o.Goods_ID
-						WHERE g.Price = (SELECT MAX(Price) FROM Goods)
-						ORDER BY g.Price DESC
-						LIMIT 1;
-					</pre>
-									</div>
-								</div>
-							</div>
-						</div>
-					</td>
-
-				</tr>
-				<tr>
-					<td>List all customers who have made more than 2 orders.
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-16 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-						
-						SELECT c.Name, COUNT(*) as num_orders
-						FROM Customer c
-						JOIN Order o ON c.ID = o.Customer_ID
-						GROUP BY c.ID
-						HAVING COUNT(*) > 2;
-					</pre>
-									</div>
-								</div>
-							</div>
-						</div>
-					</td>
-
-				</tr>
-				<tr>
-					<td>Drop the three tables.
-						<div class="container my-3">
-							<div class="row">
-								<div class="col-md-16 mx-auto">
-									<div class="pre-scrollable">
-										<pre>
-						DROP TABLE IF EXISTS Order;
-						DROP TABLE IF EXISTS Goods;
-						DROP TABLE IF EXISTS Customer;
-					</pre>
-									</div>
-								</div>
-							</div>
-						</div>
-					</td>
+					<td>8)Drop all three tables.</td>
 
 				</tr>
 			</tbody>
-		</table>
+		</table> -->
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-action active">Question</li>
+			<li class="list-group-item">1)Insert 4 rows for each table.</li>
+			<li class="list-group-item">2)Retrieve the first name, last name, email, department name, and salary of all
+				employees who work in the Sales department.</li>
+			<li class="list-group-item">3)Retrieve the average salary of all employees in the company.</li>
+			<li class="list-group-item">4)Retrieve the name of the department with the highest average salary.</li>
+			<li class="list-group-item">5)Retrieve the first name, last name, email, and total salary of all employees
+				hired in 2022.</li>
+			<li class="list-group-item">6)Retrieve the first name, last name, email, and salary of the employee with the
+				highest salary.</li>
+			<li class="list-group-item">7)Retrieve the first name,last name and email of employee which department name
+				contains with "ng".</li>
+		</ul>
 
 	</div>
 	<div>
