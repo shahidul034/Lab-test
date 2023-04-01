@@ -2,261 +2,249 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
-	<title>Lab Test 01</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #f2f2f2;
-		}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-		h1,
-		h2,
-		ol,
-		ul,
-		p {
-			margin-top: 20px;
-			margin-bottom: 10px;
-		}
+    <title>Lab Test 01</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
 
-		h1 {
-			background-color: #333;
-			color: #fff;
-			padding: 10px;
-			text-align: center;
-		}
+        h1,
+        h2,
+        ol,
+        ul,
+        p {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
 
-		h2 {
-			font-size: 22px;
-		}
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
 
-		ul {
-			list-style-type: disc;
-			margin-left: 30px;
-		}
+        h2 {
+            font-size: 22px;
+        }
 
-		ol {
-			list-style-type: decimal;
-			margin-left: 30px;
-		}
+        ul {
+            list-style-type: disc;
+            margin-left: 30px;
+        }
 
-		li {
-			margin-bottom: 5px;
-		}
+        ol {
+            list-style-type: decimal;
+            margin-left: 30px;
+        }
 
-		p {
-			font-size: 18px;
-		}
+        li {
+            margin-bottom: 5px;
+        }
 
-		table {
-			border-collapse: collapse;
-			border: 2px solid black;
-		}
+        p {
+            font-size: 18px;
+        }
 
-		th,
-		td {
-			border: 1px solid black;
-			padding: 8px;
-			text-align: left;
-		}
+        table {
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
 
 
-		th {
-			background-color: #ddd;
-		}
+        th {
+            background-color: #ddd;
+        }
 
-		tr:nth-child(even) {
-			background-color: #f2f2f2;
-		}
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-		tr:hover {
-			background-color: #ddd;
-		}
+        tr:hover {
+            background-color: #ddd;
+        }
 
-		td:first-child,
-		th:first-child {
-			border-left: none;
-		}
+        td:first-child,
+        th:first-child {
+            border-left: none;
+        }
 
-		td:last-child,
-		th:last-child {
-			border-right: none;
-		}
+        td:last-child,
+        th:last-child {
+            border-right: none;
+        }
 
-		body {
-			font-family: sans-serif;
-			display: grid;
-			height: 100vh;
-			place-items: center;
-		}
+        body {
+            font-family: sans-serif;
+            display: grid;
+            height: 100vh;
+            place-items: center;
+        }
 
-		.base-timer {
-			position: relative;
-			width: 300px;
-			height: 300px;
-		}
+        .base-timer {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
 
-		.base-timer__svg {
-			transform: scaleX(-1);
-		}
+        .base-timer__svg {
+            transform: scaleX(-1);
+        }
 
-		.base-timer__circle {
-			fill: none;
-			stroke: none;
-		}
+        .base-timer__circle {
+            fill: none;
+            stroke: none;
+        }
 
-		.base-timer__path-elapsed {
-			stroke-width: 7px;
-			stroke: grey;
-		}
+        .base-timer__path-elapsed {
+            stroke-width: 7px;
+            stroke: grey;
+        }
 
-		.base-timer__path-remaining {
-			stroke-width: 7px;
-			stroke-linecap: round;
-			transform: rotate(90deg);
-			transform-origin: center;
-			transition: 1s linear all;
-			fill-rule: nonzero;
-			stroke: currentColor;
-		}
+        .base-timer__path-remaining {
+            stroke-width: 7px;
+            stroke-linecap: round;
+            transform: rotate(90deg);
+            transform-origin: center;
+            transition: 1s linear all;
+            fill-rule: nonzero;
+            stroke: currentColor;
+        }
 
-		.base-timer__path-remaining.green {
-			color: rgb(65, 184, 131);
-		}
+        .base-timer__path-remaining.green {
+            color: rgb(65, 184, 131);
+        }
 
-		.base-timer__path-remaining.orange {
-			color: orange;
-		}
+        .base-timer__path-remaining.orange {
+            color: orange;
+        }
 
-		.base-timer__path-remaining.red {
-			color: red;
-		}
+        .base-timer__path-remaining.red {
+            color: red;
+        }
 
-		.base-timer__label {
-			position: absolute;
-			width: 300px;
-			height: 300px;
-			top: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 48px;
-		}
-	</style>
+        .base-timer__label {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+    </style>
 </head>
 
 <body>
-	<h1>CSE 3110: Database Systems Laboratory - Lab Test 01 <br>
-		Time: 30 min
-	</h1>
-	<p>Instruction: <mark>You have to write all the commands in a script file. Save the file using your Roll number (ex. 1907018.sql)</mark></p>
+    <h1>CSE 3110: Database Systems Laboratory - Lab Test 01 <br>
+        Time: 30 min
+    </h1>
+    <p>Instruction: <mark>You have to write all the commands in a script file. Save the file using your Roll number (ex.
+            1907001.sql)</mark></p>
 
-	<div style="max-width: 800px; margin: 0 auto;">
-		<h2>Table Description</h2>
-		<table class="table table-hover">
-			<tr>
-				<th>Table Name</th>
-				<th>Columns</th>
-			</tr>
-			<tr>
-				<td>Departments</td>
-				<td>department_id <br> name</td>
-			</tr>
-			<tr>
-				<td>Employees</td>
-				<td>employee_id<br>first_name<br>last_name<br>email<br>hire_date<br>department_id</td>
-			</tr>
-			<tr>
-				<td>Salaries</td>
-				<td>employee_id<br>salary<br>from_date<br>to_date</td>
-			</tr>
-		</table>
-		<ul class="list-group">
-			<li class="list-group-item list-group-item-primary">The Departments table has 2 columns: department_id and
-				name.
-				<ul>
-					<li class="list-group-item list-group-item-secondary">The department_id column is an integer column
-						that is set as the primary key of the table.</li>
-				</ul>
-			</li>
-			<li class="list-group-item list-group-item-primary">The Employees table has 6 columns: employee_id,
-				first_name, last_name, email, hire_date, and
-				department_id.
-				<ul>
-					<li class="list-group-item list-group-item-secondary">The employee_id column is an integer column
-						and is set as the primary key of the table.</li>
-					<li class="list-group-item list-group-item-secondary">The department_id column is an integer column
-						that is a foreign key referencing the
-						department_id column in the Departments table.</li>
-				</ul>
-			</li>
-			<li class="list-group-item list-group-item-primary">The Salaries table has 4 columns: employee_id, salary,
-				from_date, and to_date.
-				<ul>
-					<li class="list-group-item list-group-item-secondary">The employee_id column is an integer column
-						that is a foreign key referencing the employee_id
-						column in the Employees table.</li>
-					<li class="list-group-item list-group-item-secondary">The from_date column is a DATE column that
-						stores the start date for the salary record. This
-						column, together with employee_id, forms the primary key of the table.</li>
-				</ul>
-			</li>
-		</ul>
-		<img src="departments.png" class="img-fluid" alt="Department">
-		<img src="employees.png" class="img-fluid" alt="Employees">
-		<img src="salaries.png" class="img-fluid" alt="Salaries">
-		<h2>Queries</h2>
-		
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h2>Table Description</h2>
+        <table class="table table-hover">
+            <tr>
+                <th>Table Name</th>
+                <th>column name</th>
+            </tr>
+            <tr>
+                <td>Customers</td>
+                <td>customer_id<br>customer_name<br>customer_email</td>
+            </tr>
+            <tr>
+                <td>orders</td>
+                <td>order_id <br> order_date<br>customer_id</td>
+            </tr>
+            <tr>
+                <td>Order_items </td>
+                <td>order_item_id<br>order_id<br>product_name<br>quantity</td>
+            </tr>
+        </table>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-primary">Table description
+                <ul>
+                    <li class="list-group-item list-group-item-secondary">Three tables are given: Customers, orders, and
+                        order_item.</li>
+                    <li class="list-group-item list-group-item-secondary">The Customers table has a primary key
+                        customer_id.</li>
+                    <li class="list-group-item list-group-item-secondary">The orders table has a primary key order_id, a
+                        column for the order date, and a foreign key customer_id which references the customer_id column
+                        in the customers table.</li>
+                    <li class="list-group-item list-group-item-secondary">This establishes a one-to-many relationship
+                        between customers and orders, where one customer can have many orders. </li>
+                    <li class="list-group-item list-group-item-secondary">Finally, the order_items table has a primary
+                        key order_item_id, column for the order_id  which reference the order_id column in the orders table.</li>
+                </ul>
+            </li>
+        </ul>
+        <img src="product.png" class="img-fluid" alt="Product">
+        <h2>Queries</h2>
 
-		<ul class="list-group">
-			<li class="list-group-item list-group-item-action active">Question</li>
-			<li class="list-group-item">1)Insert above data for each table.</li>
-			<li class="list-group-item">2)Retrieve the first name, last name, email, department name, and salary of all
-				employees who work in the Sales department.</li>
-			<li class="list-group-item">3)Retrieve the average salary of all employees in the company.</li>
-			<li class="list-group-item">4)Retrieve the name of the department with the highest average salary.</li>
-			<li class="list-group-item">5)Retrieve the first name, last name, email, and total salary of all employees
-				hired in 2022.</li>
-			<li class="list-group-item">6)Retrieve the first name, last name, email, and salary of the employee with the
-				highest salary.</li>
-			<li class="list-group-item">7)Retrieve the first name,last name and email of employee which department name
-				contains with "ng".</li>
-		</ul>
-		
-	</div>
-	<div>
-		<div id="app"></div>
-	</div>
-	<script>
-		const FULL_DASH_ARRAY = 283;
-		const WARNING_THRESHOLD = 10;
-		const ALERT_THRESHOLD = 5;
 
-		const COLOR_CODES = {
-			info: {
-				color: "green"
-			},
-			warning: {
-				color: "orange",
-				threshold: WARNING_THRESHOLD
-			},
-			alert: {
-				color: "red",
-				threshold: ALERT_THRESHOLD
-			}
-		};
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action active">Question</li>
+            <li class="list-group-item">1)Insert above data for each table.</li>
+            <li class="list-group-item">2)Find the second most expensive product.</li>
+            <li class="list-group-item">3)Find the customer who buys low cost product and uses 'example' email service.
+            </li>
+            <li class="list-group-item">4)List the total number of orders in the Orders table where the order date is on
+                or after January 1, 2023.</li>
+            <li class="list-group-item">5)Lists the product name, quantity, and price for all items in the Order_items
+                table, ordered by the quantity in descending order.</li>
+            <li class="list-group-item">6)What is the total revenue generated from all orders in the Order_items table?
+            </li>
+            <li class="list-group-item">7)List the order ID and total price for all orders in the Order_items table.
+            </li>
+            <li class="list-group-item">8)List the name and email address of the customer who placed the order with the
+                highest total price in the Order_items table.</li>
+        </ul>
 
-		const TIME_LIMIT = 1800;
-		let timePassed = 0;
-		let timeLeft = TIME_LIMIT;
-		let timerInterval = null;
-		let remainingPathColor = COLOR_CODES.info.color;
+    </div>
+    <div>
+        <div id="app"></div>
+    </div>
+    <script>
+        const FULL_DASH_ARRAY = 283;
+        const WARNING_THRESHOLD = 10;
+        const ALERT_THRESHOLD = 5;
 
-		document.getElementById("app").innerHTML = `
+        const COLOR_CODES = {
+            info: {
+                color: "green"
+            },
+            warning: {
+                color: "orange",
+                threshold: WARNING_THRESHOLD
+            },
+            alert: {
+                color: "red",
+                threshold: ALERT_THRESHOLD
+            }
+        };
+
+        const TIME_LIMIT = 1800;
+        let timePassed = 0;
+        let timeLeft = TIME_LIMIT;
+        let timerInterval = null;
+        let remainingPathColor = COLOR_CODES.info.color;
+
+        document.getElementById("app").innerHTML = `
 <div class="base-timer">
   <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <g class="base-timer__circle">
@@ -275,77 +263,77 @@
     </g>
   </svg>
   <span id="base-timer-label" class="base-timer__label">${formatTime(
-			timeLeft
-		)}</span>
+            timeLeft
+        )}</span>
 </div>
 `;
 
-		startTimer();
+        startTimer();
 
-		function onTimesUp() {
-			clearInterval(timerInterval);
-		}
+        function onTimesUp() {
+            clearInterval(timerInterval);
+        }
 
-		function startTimer() {
-			timerInterval = setInterval(() => {
-				timePassed = timePassed += 1;
-				timeLeft = TIME_LIMIT - timePassed;
-				document.getElementById("base-timer-label").innerHTML = formatTime(
-					timeLeft
-				);
-				setCircleDasharray();
-				setRemainingPathColor(timeLeft);
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timePassed = timePassed += 1;
+                timeLeft = TIME_LIMIT - timePassed;
+                document.getElementById("base-timer-label").innerHTML = formatTime(
+                    timeLeft
+                );
+                setCircleDasharray();
+                setRemainingPathColor(timeLeft);
 
-				if (timeLeft === 0) {
-					onTimesUp();
-				}
-			}, 1000);
-		}
+                if (timeLeft === 0) {
+                    onTimesUp();
+                }
+            }, 1000);
+        }
 
-		function formatTime(time) {
-			const minutes = Math.floor(time / 60);
-			let seconds = time % 60;
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
 
-			if (seconds < 10) {
-				seconds = `0${seconds}`;
-			}
+            if (seconds < 10) {
+                seconds = `0${seconds}`;
+            }
 
-			return `${minutes}:${seconds}`;
-		}
+            return `${minutes}:${seconds}`;
+        }
 
-		function setRemainingPathColor(timeLeft) {
-			const { alert, warning, info } = COLOR_CODES;
-			if (timeLeft <= alert.threshold) {
-				document
-					.getElementById("base-timer-path-remaining")
-					.classList.remove(warning.color);
-				document
-					.getElementById("base-timer-path-remaining")
-					.classList.add(alert.color);
-			} else if (timeLeft <= warning.threshold) {
-				document
-					.getElementById("base-timer-path-remaining")
-					.classList.remove(info.color);
-				document
-					.getElementById("base-timer-path-remaining")
-					.classList.add(warning.color);
-			}
-		}
+        function setRemainingPathColor(timeLeft) {
+            const { alert, warning, info } = COLOR_CODES;
+            if (timeLeft <= alert.threshold) {
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.remove(warning.color);
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.add(alert.color);
+            } else if (timeLeft <= warning.threshold) {
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.remove(info.color);
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.add(warning.color);
+            }
+        }
 
-		function calculateTimeFraction() {
-			const rawTimeFraction = timeLeft / TIME_LIMIT;
-			return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
-		}
+        function calculateTimeFraction() {
+            const rawTimeFraction = timeLeft / TIME_LIMIT;
+            return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+        }
 
-		function setCircleDasharray() {
-			const circleDasharray = `${(
-				calculateTimeFraction() * FULL_DASH_ARRAY
-			).toFixed(0)} 283`;
-			document
-				.getElementById("base-timer-path-remaining")
-				.setAttribute("stroke-dasharray", circleDasharray);
-		}
-	</script>
+        function setCircleDasharray() {
+            const circleDasharray = `${(
+                calculateTimeFraction() * FULL_DASH_ARRAY
+            ).toFixed(0)} 283`;
+            document
+                .getElementById("base-timer-path-remaining")
+                .setAttribute("stroke-dasharray", circleDasharray);
+        }
+    </script>
 </body>
 
 </html>
