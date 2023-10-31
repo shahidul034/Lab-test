@@ -3,17 +3,67 @@
 
 <head>
     <title>Microprocessor Lab Test - 2023</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+        }
+        h1 {
+          color: #333;
+        }
+        #timer {
+          font-size: 48px;
+          color: #ff5733;
+          font-weight: bold;
+          margin: 20px 0;
+        }
+      </style>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
     <h1 style="background-color: antiquewhite;">Microprocessor Lab Test - 2023</h1>
+    <div>
+        <p id="timer"></p>
+        <script>
+            // Set the target time to 3:00 PM
+            const targetTime = new Date();
+            targetTime.setHours(14, 20, 0, 0);
+
+            function updateTimer() {
+                const currentTime = new Date();
+                const timeRemaining = targetTime - currentTime;
+
+                if (timeRemaining <= 0) {
+                    // Timer has ended
+                    document.getElementById('timer').textContent = "Timer has ended!";
+                } else {
+                    const hours = Math.floor((timeRemaining / 1000 / 60 / 60) % 24);
+                    const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
+                    const seconds = Math.floor((timeRemaining / 1000) % 60);
+
+                    const formattedTime = `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+                    document.getElementById('timer').textContent = formattedTime;
+                }
+            }
+
+            // Update the timer every second
+            setInterval(updateTimer, 1000);
+
+            // Initial update
+            updateTimer();
+        </script>
+
+
+    </div>
+    
     <div class="container">
         <ul class="list-group">
             <h1 style="color: cadetblue;">A section</h1>
             <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Write an assembly program to take two strings and concatenate the first two characters of the first
+                <h2 style="background-color: darkgrey;">Write an assembly program to take two strings and concatenate
+                    the first two characters of the first
                     string and the last two characters of the second string.</h2>
                 <p>Input: abc dma</p>
                 <p>Output: abma</p>
@@ -26,7 +76,8 @@
                 <p>Output: 9 16</p>
             </li>
             <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Develop an assembly program to encrypt and decrypt a string using a simple algorithm like the Caesar
+                <h2 style="background-color: darkgrey;">Develop an assembly program to encrypt and decrypt a string
+                    using a simple algorithm like the Caesar
                     cipher. The program should be able to perform decryption.</h2>
                 <p>Input: def 3</p>
                 <p>Output: abc</p>
@@ -42,7 +93,8 @@
                 <p> common factors: 1,2,3,6</p>
             </li>
             <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Delete the character using the particular index, and print the string after removing the character.
+                <h2 style="background-color: darkgrey;">Delete the character using the particular index, and print the
+                    string after removing the character.
                 </h2>
                 <p>Input: abcd 1</p>
                 <p>Output: acd</p>
@@ -50,13 +102,15 @@
                 <p>Output: bcd</p>
             </li>
             <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Develop an assembly program to encrypt and decrypt a string using a simple algorithm like the Caesar
+                <h2 style="background-color: darkgrey;">Develop an assembly program to encrypt and decrypt a string
+                    using a simple algorithm like the Caesar
                     cipher. The program should be able to perform encryption.</h2>
                 <p>Input: abc 3</p>
                 <p>Output: def</p>
             </li>
         </ul>
     </div>
+
 
     <!-- Include Bootstrap JS and jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
