@@ -2,119 +2,338 @@
 <html>
 
 <head>
-    <title>Microprocessor Lab Test - 2023</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Lab Test 01</title>
     <style>
         body {
-          font-family: Arial, sans-serif;
-          text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
         }
+
+        h1,
+        h2,
+        ol,
+        ul,
+        p {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
         h1 {
-          color: #333;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
         }
-        #timer {
-          font-size: 48px;
-          color: #ff5733;
-          font-weight: bold;
-          margin: 20px 0;
+
+        h2 {
+            font-size: 22px;
         }
-      </style>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        ul {
+            list-style-type: disc;
+            margin-left: 30px;
+        }
+
+        ol {
+            list-style-type: decimal;
+            margin-left: 30px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+
+        th {
+            background-color: #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        td:first-child,
+        th:first-child {
+            border-left: none;
+        }
+
+        td:last-child,
+        th:last-child {
+            border-right: none;
+        }
+
+        body {
+            font-family: sans-serif;
+            display: grid;
+            height: 100vh;
+            place-items: center;
+        }
+
+        .base-timer {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .base-timer__svg {
+            transform: scaleX(-1);
+        }
+
+        .base-timer__circle {
+            fill: none;
+            stroke: none;
+        }
+
+        .base-timer__path-elapsed {
+            stroke-width: 7px;
+            stroke: grey;
+        }
+
+        .base-timer__path-remaining {
+            stroke-width: 7px;
+            stroke-linecap: round;
+            transform: rotate(90deg);
+            transform-origin: center;
+            transition: 1s linear all;
+            fill-rule: nonzero;
+            stroke: currentColor;
+        }
+
+        .base-timer__path-remaining.green {
+            color: rgb(65, 184, 131);
+        }
+
+        .base-timer__path-remaining.orange {
+            color: orange;
+        }
+
+        .base-timer__path-remaining.red {
+            color: red;
+        }
+
+        .base-timer__label {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 style="background-color: antiquewhite;">Microprocessor Lab Test - 2023</h1>
+    <h1>CSE 3110: Database Systems Laboratory - Lab Test 01 <br>
+        Time: 30 min
+    </h1>
+    <p>Instruction: <mark>You have to write all the commands in a script file. Save the file using your Roll number (ex.
+            1907001.sql)</mark></p>
+
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h2>Table Description</h2>
+        <table class="table table-hover">
+            <tr>
+                <th>Table Name</th>
+                <th>column name</th>
+            </tr>
+            <tr>
+                <td>Customers</td>
+                <td>customer_id<br>customer_name<br>customer_email</td>
+            </tr>
+            <tr>
+                <td>orders</td>
+                <td>order_id <br> order_date<br>customer_id</td>
+            </tr>
+            <tr>
+                <td>Order_items </td>
+                <td>order_item_id<br>order_id<br>product_name<br>quantity<br>price</td>
+            </tr>
+        </table>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-primary">Table description
+                <ul>
+                    <li class="list-group-item list-group-item-secondary">Three tables are given: Customers, orders, and
+                        order_item.</li>
+                    <li class="list-group-item list-group-item-secondary">The Customers table has a primary key
+                        customer_id.</li>
+                    <li class="list-group-item list-group-item-secondary">The orders table has a primary key order_id, a
+                        column for the order date, and a foreign key customer_id which references the customer_id column
+                        in the customers table.</li>
+                    <li class="list-group-item list-group-item-secondary">This establishes a one-to-many relationship
+                        between customers and orders, where one customer can have many orders. </li>
+                    <li class="list-group-item list-group-item-secondary">Finally, the order_items table has a primary
+                        key order_item_id, column for the order_id  which reference the order_id column in the orders table.</li>
+                </ul>
+            </li>
+        </ul>
+        <img src="product.png" class="img-fluid" alt="Product">
+        <h2>Queries</h2>
+
+
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action active">Question</li>
+            <li class="list-group-item">1)Insert above data for each table.</li>
+            <li class="list-group-item">2)Find the second most expensive product.</li>
+            <li class="list-group-item">3)Find the customer who buys low cost product and uses 'example' email service.
+            </li>
+            <li class="list-group-item">4)List the total number of orders in the Orders table where the order date is on
+                or after January 1, 2023.</li>
+            <li class="list-group-item">5)Lists the product name, quantity, and price for all items in the Order_items
+                table, ordered by the quantity in descending order.</li>
+            <li class="list-group-item">6)What is the total revenue generated from all orders in the Order_items table?
+            </li>
+            <li class="list-group-item">7)List the order ID and total price for all orders in the Order_items table.
+            </li>
+            <li class="list-group-item">8)List the name and email address of the customer who placed the order with the
+                highest total price in the Order_items table.</li>
+        </ul>
+
+    </div>
     <div>
-        <p id="timer"></p>
-        <script>
-            // Set the target time to 3:00 PM
-            const targetTime = new Date();
-            targetTime.setHours(15, 50, 0, 0);
+        <div id="app"></div>
+    </div>
+    <script>
+        const FULL_DASH_ARRAY = 283;
+        const WARNING_THRESHOLD = 10;
+        const ALERT_THRESHOLD = 5;
 
-            function updateTimer() {
-                const currentTime = new Date();
-                const timeRemaining = targetTime - currentTime;
+        const COLOR_CODES = {
+            info: {
+                color: "green"
+            },
+            warning: {
+                color: "orange",
+                threshold: WARNING_THRESHOLD
+            },
+            alert: {
+                color: "red",
+                threshold: ALERT_THRESHOLD
+            }
+        };
 
-                if (timeRemaining <= 0) {
-                    // Timer has ended
-                    document.getElementById('timer').textContent = "Timer has ended!";
-                } else {
-                    const hours = Math.floor((timeRemaining / 1000 / 60 / 60) % 24);
-                    const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
-                    const seconds = Math.floor((timeRemaining / 1000) % 60);
+        const TIME_LIMIT = 1800;
+        let timePassed = 0;
+        let timeLeft = TIME_LIMIT;
+        let timerInterval = null;
+        let remainingPathColor = COLOR_CODES.info.color;
 
-                    const formattedTime = `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
-                    document.getElementById('timer').textContent = formattedTime;
+        document.getElementById("app").innerHTML = `
+<div class="base-timer">
+  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="base-timer__circle">
+      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+      <path
+        id="base-timer-path-remaining"
+        stroke-dasharray="283"
+        class="base-timer__path-remaining ${remainingPathColor}"
+        d="
+          M 50, 50
+          m -45, 0
+          a 45,45 0 1,0 90,0
+          a 45,45 0 1,0 -90,0
+        "
+      ></path>
+    </g>
+  </svg>
+  <span id="base-timer-label" class="base-timer__label">${formatTime(
+            timeLeft
+        )}</span>
+</div>
+`;
+
+        startTimer();
+
+        function onTimesUp() {
+            clearInterval(timerInterval);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timePassed = timePassed += 1;
+                timeLeft = TIME_LIMIT - timePassed;
+                document.getElementById("base-timer-label").innerHTML = formatTime(
+                    timeLeft
+                );
+                setCircleDasharray();
+                setRemainingPathColor(timeLeft);
+
+                if (timeLeft === 0) {
+                    onTimesUp();
                 }
+            }, 1000);
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+
+            if (seconds < 10) {
+                seconds = `0${seconds}`;
             }
 
-            // Update the timer every second
-            setInterval(updateTimer, 1000);
+            return `${minutes}:${seconds}`;
+        }
 
-            // Initial update
-            updateTimer();
-        </script>
+        function setRemainingPathColor(timeLeft) {
+            const { alert, warning, info } = COLOR_CODES;
+            if (timeLeft <= alert.threshold) {
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.remove(warning.color);
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.add(alert.color);
+            } else if (timeLeft <= warning.threshold) {
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.remove(info.color);
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.add(warning.color);
+            }
+        }
 
+        function calculateTimeFraction() {
+            const rawTimeFraction = timeLeft / TIME_LIMIT;
+            return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+        }
 
-    </div>
-    
-    <div class="container">
-        <ul class="list-group">
-            <h1 style="color: cadetblue;">A section</h1>
-            <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Write an assembly program to take two strings and concatenate
-                    the first two characters of the first
-                    string and the last two characters of the second string.</h2>
-                <p>Input: abc dma</p>
-                <p>Output: abma</p>
-                <p>Input: kdb mark</p>
-                <p>Output: kdrk</p>
-            </li>
-            <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Find the square number in the sequence.</h2>
-                <p>Input: 2 7 9 16</p>
-                <p>Output: 9 16</p>
-            </li>
-            <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Develop an assembly program to encrypt and decrypt a string
-                    using a simple algorithm like the Caesar
-                    cipher. The program should be able to perform decryption.</h2>
-                <p>Input: def 3</p>
-                <p>Output: abc</p>
-            </li>
-        </ul>
-        <h1 style="color: cadetblue;">B section</h1>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Find the common factors of two numbers.</h2>
-                <p>Input: 48 54</p>
-                <p>Factors of 48: 1, 2, 3, 4, 6, 8, 12, 16, 24, 48</p>
-                <p>Factors of 54: 1, 2, 3, 6, 9, 18, 27, 54</p>
-                <p> common factors: 1,2,3,6</p>
-            </li>
-            <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Delete the character using the particular index, and print the
-                    string after removing the character.
-                </h2>
-                <p>Input: abcd 1</p>
-                <p>Output: acd</p>
-                <p>Input: abcd 0</p>
-                <p>Output: bcd</p>
-            </li>
-            <li class="list-group-item">
-                <h2 style="background-color: darkgrey;">Develop an assembly program to encrypt and decrypt a string
-                    using a simple algorithm like the Caesar
-                    cipher. The program should be able to perform encryption.</h2>
-                <p>Input: abc 3</p>
-                <p>Output: def</p>
-            </li>
-        </ul>
-    </div>
-
-
-    <!-- Include Bootstrap JS and jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        function setCircleDasharray() {
+            const circleDasharray = `${(
+                calculateTimeFraction() * FULL_DASH_ARRAY
+            ).toFixed(0)} 283`;
+            document
+                .getElementById("base-timer-path-remaining")
+                .setAttribute("stroke-dasharray", circleDasharray);
+        }
+    </script>
 </body>
 
 </html>
